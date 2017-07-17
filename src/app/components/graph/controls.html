@@ -1,0 +1,13 @@
+<h3>Reactive Form</h3>
+<p *ngIf="isValidFormSubmitted && controlForm.pristine"
+	[ngClass]="'success'">Form submitted successfully.</p>
+<form [formGroup]="controlForm" (ngSubmit)="onFormSubmit()">
+	<table>
+		<tr>
+			<td>Capability Groups: count</td>
+			<div class="btn-group">
+				
+			</div>
+		</tr>
+	</table>
+</form>
