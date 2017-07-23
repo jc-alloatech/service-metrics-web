@@ -6,12 +6,14 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ControlsComponent } from './controls.component';
+import { UiSwitchModule } from 'angular2-ui-switch';
 
 @NgModule({
   imports: [
     routing,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UiSwitchModule
   ],
   declarations: [
     NetworkGraphComponent,

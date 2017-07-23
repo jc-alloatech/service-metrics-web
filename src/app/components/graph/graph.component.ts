@@ -18,9 +18,6 @@ import { GraphService } from './graph.service';
 })
 export class NetworkGraphComponent implements OnInit {
     private data: any;
-    private dataSetNodes: DataSet;
-    private dataSetEdges: DataSet;
-    private dataView: DataView;
     private network: Network;
     private curNode: Node;
     private curNodeTemplate: Node;
@@ -96,18 +93,7 @@ export class NetworkGraphComponent implements OnInit {
             }
         };
         console.log("Creating Network from Data:: " + this.data);
-        this.dataSetNodes = new DataSet(this.data.nodes);
-        this.dataSetEdges = new DataSet(this.data.edges);
-        this.dataView = new DataView(this.dataSetNodes, {
-            filter: function(item) {
-                return (item.group == 'Interface' || item.group == 'Component' || item.group == 'Capability' || item.group == 'Capability Group' || item.group == 'Service Calls' || item.group == 'Consumers');
-            }
-        });
-        var newDataNetwork = {
-            nodes: this.dataView,
-            edges: this.dataSetEdges
-        };
-        this.network = new Network(container, newDataNetwork, options);
+        this.network = new Network(container, this.data, options);
         this.network.on('click', (properties) => this.handleClick(properties));
     }
 }

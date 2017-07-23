@@ -1,13 +1,7 @@
-<h3>Reactive Form</h3>
-<p *ngIf="isValidFormSubmitted && controlForm.pristine"
-	[ngClass]="'success'">Form submitted successfully.</p>
-<form [formGroup]="controlForm" (ngSubmit)="onFormSubmit()">
-	<table>
-		<tr>
-			<td>Capability Groups: count</td>
-			<div class="btn-group">
-				
-			</div>
-		</tr>
-	</table>
-</form>
+<div class="btn-group">
+    <span class="btn btn-primary"><i class="fa fa-object-group fa-lg fa-pull-left"></i>Capability Group<br>count: ( {{ controls.capabilityGroupCount }} )<ui-switch size="small" checked (change)="onCGChange($event)"></ui-switch></span>
+    <span class="btn btn-primary"><i class="fa fa-square-o fa-lg fa-pull-left"></i>Capability<br>count: ( {{ controls.capabilityCount }} )<ui-switch  size="small" checked (change)="onCapChange($event)"></ui-switch></span>
+    <span class="btn btn-primary"><i class="fa fa-codepen fa-lg fa-pull-left"></i>Component<br>count: ( {{ controls.componentCount }} )<ui-switch  size="small" checked (change)="onCompChange($event)"></ui-switch></span>
+    <span class="btn btn-primary"><i class="fa fa-cog fa-lg fa-pull-left"></i>Interface<br>count: ( {{ controls.interfaceCount }} )<ui-switch  size="small" checked (change)="onIntChange($event)"></ui-switch></span>
+    <span class="btn btn-primary"><i class="fa fa-user-o fa-lg fa-pull-left"></i>Consumer<br>count: ( {{ controls.consumerCount }} )<ui-switch  size="small" checked (change)="onConsumerChange($event)"></ui-switch></span>
+ </div>

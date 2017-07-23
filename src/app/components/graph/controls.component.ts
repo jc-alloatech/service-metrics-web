@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 
 import { GraphService } from './graph.service';
 import { Controls } from './controls';
@@ -9,47 +8,55 @@ import { Controls } from './controls';
     template: require('./controls.html'),
 })
 export class ControlsComponent {
-    private data: any;
-    isValidFormSubmitted: boolean = null;
-    controlFormGroup = new FormGroup({
-        showCapabilityGroups: new FormControl(true),
-        showCapabilities: new FormControl(true),
-        showComponents: new FormControl(true),
-        showInterfaces: new FormControl(true),
-        showOperations: new FormControl(true),
-        showConsumers: new FormControl(true)
-    });
     controls = new Controls();
     constructor(private service: GraphService) {
-        service.getData().subscribe(data => { this.data = data; this.handleNewData(); }, error => console.log(error));
-        console.log('controls.component::data:: ' + this.data);
- 
+        service.getControls().subscribe(controls => { this.controls = controls; this.handleNewControls(); }, error => console.log(error));
+        console.log('controls.component::data:: ' + this.controls);
     }
 
-    onFormSubmit() {
-        this.isValidFormSubmitted = false;
-        if (this.controlFormGroup.invalid) {
-            return;
-        }
-        this.isValidFormSubmitted = true;
-        console.log(this.controlFormGroup.valid);
-        this.controls.showCapabilityGroups = this.controlFormGroup.get('showCapabilityGroups').value;
-        this.controls.showCapabilities = this.controlFormGroup.get('showCapabilities').value;
-        this.controls.showComponents = this.controlFormGroup.get('showComponents').value;
-        this.controls.showInterfaces = this.controlFormGroup.get('showInterfaces').value;
-        this.controls.showOperations = this.controlFormGroup.get('showOperations').value;
-        this.controls.showConsumers = this.controlFormGroup.get('showConsumers').value;
-        this.reset();
+    private handleNewControls(): void {
+        console.log('controls.component::handleNewControls()');
     }
-    reset() {
-        this.controlFormGroup.reset();
-        this.controlFormGroup.get('married').setValue(false);
+
+    private onCGChange(event): void {
+        console.log("onCGChange::event - " + event);
+        console.log('controls::sCG - before-' + this.controls.showCapabilityGroups);
+        this.controls.showCapabilityGroups = event;
+        console.log('controls::sCG - after-' + this.controls.showCapabilityGroups);
+        this.service.updateOnControlChange(this.controls).subscribe(controls => { this.controls = controls; this.handleNewControls(); }, error => console.log(error));
     }
-    setDefaultValues() {
-        this.controlFormGroup.patchValue({ showCapabilityGroups: true, showCapabilities: true, showComponents: true, showInterfaces: true, showOperations: true, showConsumers: true });
+
+    private onCapChange(event): void {
+        console.log("onCapChange::event - " + event);
+        console.log('controls::Cap - before-' + this.controls.showCapabilities);
+        this.controls.showCapabilities = event;
+        console.log('controls::Cap - after-' + this.controls.showCapabilities);
+        this.service.updateOnControlChange(this.controls).subscribe(controls => { this.controls = controls; this.handleNewControls(); }, error => console.log(error));
     }
-    
-    private handleNewData(): void {
+
+    private onCompChange(event): void {
+        console.log("onCompChange::event - " + event);
+        console.log('controls::Cap - before-' + this.controls.showComponents);
+        this.controls.showComponents = event;
+        console.log('controls::Cap - after-' + this.controls.showComponents);
+        this.service.updateOnControlChange(this.controls).subscribe(controls => { this.controls = controls; this.handleNewControls(); }, error => console.log(error));
     }
-    
+
+    private onIntChange(event): void {
+        console.log("onIntChange::event - " + event);
+        console.log('controls::Int - before-' + this.controls.showInterfaces);
+        this.controls.showInterfaces = event;
+        console.log('controls::int - after-' + this.controls.showInterfaces);
+        this.service.updateOnControlChange(this.controls).subscribe(controls => { this.controls = controls; this.handleNewControls(); }, error => console.log(error));
+    }
+
+    private onConsumerChange(event): void {
+        console.log("onConsumerChange::event - " + event);
+        console.log('controls::consumer - before-' + this.controls.showConsumers);
+        this.controls.showConsumers = event;
+        console.log('controls::consumer - after-' + this.controls.showConsumers);
+        this.service.updateOnControlChange(this.controls).subscribe(controls => { this.controls = controls; this.handleNewControls(); }, error => console.log(error));
+    }
+
+
 } 
